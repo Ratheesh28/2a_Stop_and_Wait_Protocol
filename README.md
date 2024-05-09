@@ -1,7 +1,7 @@
-# 2a_Stop_and_Wait_Protocol
-## AIM 
-To write a python program to perform stop and wait protocol
-## ALGORITHM
+# 2b IMPLEMENTATION OF SLIDING WINDOW PROTOCOL
+## AIM
+To write a python program to perform sliding window protocol
+## ALGORITHM:
 1. Start the program.
 2. Get the frame size from the user
 3. To create the frame based on the user request.
@@ -17,31 +17,36 @@ s=socket.socket()
 s.bind(('localhost',8000))
 s.listen(5)
 c,addr=s.accept()
+size=int(input("Enter number of frames:"))
+l=list(range(size))
+s=int(input("Enter window size:"))
+st=0
+i=0
 while True:
-    i=input("Enter the data: ")
-    c.send(i.encode())
-    ack=c.recv(1024).decode()
-    if ack:
-        print(ack)
-        continue
-    else:
-        c.close
-        break
+    while(i<len(l)):
+        st+=s
+        c.send(str(l[i:st]).encode())
+        ack=c.recv(1024).decode()
+        if ack:
+            print(ack)
+            i+=s
   ```
   ## Server :
    ```
    import socket
-  s=socket.socket()
-  s.connect(('localhost',8000))
-  while True:
-      print(s.recv(1024).decode())
-      s.send("Acknowledgement Received".encode())
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    print(s.recv(1024).decode())
+    s.send("acknoledgement recieved from the server".encode())
    ```
 ## Output :
   ## Client :
-  ![image](https://github.com/Vinishofficial/SocketStudy/assets/146931793/c61548a3-524b-4eb4-9759-484fe37e53bf)
+  ![Screenshot 2024-04-05 110247](https://github.com/Vinishofficial/2b_SLIDING_WINDOW_PROTOCOL/assets/146931793/ffb152ad-5881-4d82-91e5-5b6629144c54)
+
   ## Server :
-  ![image](https://github.com/Vinishofficial/SocketStudy/assets/146931793/2d5a89d8-35f3-4773-9934-01f08dc46ed3)
+  ![Screenshot 2024-04-05 110302](https://github.com/Vinishofficial/2b_SLIDING_WINDOW_PROTOCOL/assets/146931793/b7bebd90-e951-4ab1-9770-b63f0a6c6273)
+
   
 ## RESULT
-Thus, python program to perform stop and wait protocol was successfully executed.
+Thus, python program to perform stop and wait protocol was successfully executed
